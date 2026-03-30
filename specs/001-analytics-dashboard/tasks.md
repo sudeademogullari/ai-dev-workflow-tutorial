@@ -133,9 +133,9 @@ KPIs and all three charts update to reflect only matching transactions (FR-006).
 
 **Purpose**: Verify the three required smoke test scenarios pass before deployment.
 
-- [ ] T026 Implement `test_data_loads` in `tests/test_smoke.py`: call `load_data()` and assert the returned DataFrame has 482 rows and all required columns present
-- [ ] T027 [P] Implement `test_kpis_compute` in `tests/test_smoke.py`: call `compute_kpis()` on the full dataset and assert `total_orders == 482`, `total_sales` is between 650000 and 700000, `avg_order_value > 0`, and `top_category` is a non-empty string
-- [ ] T028 [P] Implement `test_charts_render` in `tests/test_smoke.py`: call `build_trend_chart()`, `build_category_chart()`, and `build_regional_chart()` and assert each returns a Plotly Figure object with at least one trace
+- [x] T026 Implement `test_data_loads` in `tests/test_smoke.py`: call `load_data()` and assert the returned DataFrame has 482 rows and all required columns present
+- [x] T027 [P] Implement `test_kpis_compute` in `tests/test_smoke.py`: call `compute_kpis()` on the full dataset and assert `total_orders == 482`, `total_sales` is between 650000 and 700000, `avg_order_value > 0`, and `top_category` is a non-empty string
+- [x] T028 [P] Implement `test_charts_render` in `tests/test_smoke.py`: call `build_trend_chart()`, `build_category_chart()`, and `build_regional_chart()` and assert each returns a Plotly Figure object with at least one trace
 
 **Checkpoint**: Run `pytest tests/test_smoke.py -v` — all three tests pass before deploying.
 
