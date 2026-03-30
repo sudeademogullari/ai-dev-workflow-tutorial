@@ -123,9 +123,9 @@ KPIs and all three charts update to reflect only matching transactions (FR-006).
 
 **Purpose**: Data quality transparency, empty states, and layout refinement.
 
-- [ ] T023 Add data quality banner to `app.py`: render `st.warning(f"{rows_skipped} row(s) excluded due to unrecoverable missing data.")` above the filter bar whenever `rows_skipped > 0` (FR-007)
-- [ ] T024 [P] Add empty-state handling to `app.py`: when the filtered DataFrame has zero rows, display `st.info("No data matches the selected filters.")` in place of all charts and show zero values in all KPI cards (FR-009)
-- [ ] T025 [P] Add dashboard header to `app.py`: `st.title("ShopSmart Sales Dashboard")` and a subtitle line showing the active date range of the loaded data
+- [x] T023 Add data quality banner to `app.py`: render `st.warning(f"{rows_skipped} row(s) excluded due to unrecoverable missing data.")` above the filter bar whenever `rows_skipped > 0` (FR-007)
+- [x] T024 [P] Add empty-state handling to `app.py`: when the filtered DataFrame has zero rows, display `st.info("No data matches the selected filters.")` in place of all charts and show zero values in all KPI cards (FR-009)
+- [x] T025 [P] Add dashboard header to `app.py`: `st.title("ShopSmart Sales Dashboard")` and a subtitle line showing the active date range of the loaded data
 
 ---
 

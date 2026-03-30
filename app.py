@@ -205,6 +205,17 @@ st.title("ShopSmart Sales Dashboard")
 df_raw = load_data()
 df_clean, rows_skipped = clean_data(df_raw)
 
+data_date_min = df_clean["date"].dt.date.min()
+data_date_max = df_clean["date"].dt.date.max()
+st.caption(
+    f"Dataset covers {data_date_min.strftime('%b %d, %Y')} – {data_date_max.strftime('%b %d, %Y')}"
+)
+
+# ── Data quality banner ───────────────────────────────────────────────────────
+
+if rows_skipped > 0:
+    st.warning(f"{rows_skipped} row(s) excluded due to unrecoverable missing data.")
+
 # ── Filter bar ────────────────────────────────────────────────────────────────
 
 date_min = df_clean["date"].dt.date.min()
@@ -261,23 +272,28 @@ with col4:
         f"${kpis['top_category_value']:,.2f}",
     )
 
-# ── Sales trend chart ─────────────────────────────────────────────────────────
+# ── Charts (empty-state guard) ────────────────────────────────────────────────
 
-monthly_df = compute_monthly_trend(df)
-st.plotly_chart(build_trend_chart(monthly_df), use_container_width=True)
+if df.empty:
+    st.info("No data matches the selected filters.")
+else:
+    # ── Sales trend chart ─────────────────────────────────────────────────────
 
-# ── Category & regional breakdowns ───────────────────────────────────────────
+    monthly_df = compute_monthly_trend(df)
+    st.plotly_chart(build_trend_chart(monthly_df), use_container_width=True)
 
-chart_col1, chart_col2 = st.columns(2)
+    # ── Category & regional breakdowns ────────────────────────────────────────
 
-with chart_col1:
-    st.plotly_chart(
-        build_category_chart(compute_category_breakdown(df)),
-        use_container_width=True,
-    )
+    chart_col1, chart_col2 = st.columns(2)
 
-with chart_col2:
-    st.plotly_chart(
-        build_regional_chart(compute_regional_breakdown(df)),
-        use_container_width=True,
-    )
+    with chart_col1:
+        st.plotly_chart(
+            build_category_chart(compute_category_breakdown(df)),
+            use_container_width=True,
+        )
+
+    with chart_col2:
+        st.plotly_chart(
+            build_regional_chart(compute_regional_breakdown(df)),
+            use_container_width=True,
+        )
