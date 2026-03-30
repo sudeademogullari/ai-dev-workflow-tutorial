@@ -145,8 +145,8 @@ KPIs and all three charts update to reflect only matching transactions (FR-006).
 
 **Purpose**: Confirm the app is ready for Streamlit Community Cloud.
 
-- [ ] T029 Verify `requirements.txt` has pinned versions for all imports used in `app.py` (streamlit, plotly, pandas); add any missing packages (Constitution Principle IV)
-- [ ] T030 Run through the `specs/001-analytics-dashboard/quickstart.md` validation checklist manually — confirm all seven checkboxes pass with the sample CSV
+- [x] T029 Verify `requirements.txt` has pinned versions for all imports used in `app.py` (streamlit, plotly, pandas); add any missing packages (Constitution Principle IV)
+- [x] T030 Run through the `specs/001-analytics-dashboard/quickstart.md` validation checklist manually — confirm all seven checkboxes pass with the sample CSV
 
 ---
 
