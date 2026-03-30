@@ -178,12 +178,69 @@ def build_regional_chart(regional_df: pd.DataFrame):
     return fig
 
 
+def apply_filters(
+    df: pd.DataFrame,
+    date_start,
+    date_end,
+    categories: list,
+    regions: list,
+) -> pd.DataFrame:
+    """Filter the cleaned DataFrame by active filter state (FR-006).
+
+    Applies date range, then category, then region filters in order.
+    Empty categories/regions lists mean no filter applied for that dimension.
+    """
+    mask = (df["date"].dt.date >= date_start) & (df["date"].dt.date <= date_end)
+    if categories:
+        mask &= df["category"].isin(categories)
+    if regions:
+        mask &= df["region"].isin(regions)
+    return df[mask].reset_index(drop=True)
+
+
 # ── Main app ──────────────────────────────────────────────────────────────────
 
 st.title("ShopSmart Sales Dashboard")
 
 df_raw = load_data()
-df, rows_skipped = clean_data(df_raw)
+df_clean, rows_skipped = clean_data(df_raw)
+
+# ── Filter bar ────────────────────────────────────────────────────────────────
+
+date_min = df_clean["date"].dt.date.min()
+date_max = df_clean["date"].dt.date.max()
+all_categories = sorted(df_clean["category"].unique().tolist())
+all_regions = sorted(df_clean["region"].unique().tolist())
+
+f_col1, f_col2, f_col3 = st.columns(3)
+
+with f_col1:
+    date_range = st.date_input(
+        "Date Range",
+        value=(date_min, date_max),
+        min_value=date_min,
+        max_value=date_max,
+    )
+
+with f_col2:
+    selected_categories = st.multiselect(
+        "Category", options=all_categories, default=[]
+    )
+
+with f_col3:
+    selected_regions = st.multiselect(
+        "Region", options=all_regions, default=[]
+    )
+
+# Handle date_input returning a single date while user is picking the range
+if isinstance(date_range, (list, tuple)) and len(date_range) == 2:
+    date_start, date_end = date_range
+else:
+    date_start = date_end = date_range[0] if date_range else date_min
+
+df = apply_filters(df_clean, date_start, date_end, selected_categories, selected_regions)
+
+# ── KPI cards ─────────────────────────────────────────────────────────────────
 
 kpis = compute_kpis(df)
 

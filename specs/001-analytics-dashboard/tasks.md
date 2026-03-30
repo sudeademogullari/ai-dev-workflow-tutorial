@@ -111,9 +111,9 @@ KPIs and all three charts update to reflect only matching transactions (FR-006).
 
 ### Implementation for User Story 4
 
-- [ ] T020 [US4] Add a three-column filter bar to `app.py` using `st.columns(3)` positioned above the KPI row, containing: (col1) `st.date_input` for date range with dataset min/max as defaults, (col2) `st.multiselect` for categories populated from distinct values in the data, (col3) `st.multiselect` for regions populated from distinct values in the data (FR-006)
-- [ ] T021 [US4] Implement `apply_filters(df, date_start, date_end, categories, regions)` function in `app.py` that filters the cleaned DataFrame by the active filter state (date range, then categories, then regions) and returns the filtered DataFrame (FR-006)
-- [ ] T022 [US4] Wire filter state into `app.py` main flow so that `apply_filters()` runs after `clean_data()` and the filtered DataFrame is passed to all KPI and chart functions (FR-006)
+- [x] T020 [US4] Add a three-column filter bar to `app.py` using `st.columns(3)` positioned above the KPI row, containing: (col1) `st.date_input` for date range with dataset min/max as defaults, (col2) `st.multiselect` for categories populated from distinct values in the data, (col3) `st.multiselect` for regions populated from distinct values in the data (FR-006)
+- [x] T021 [US4] Implement `apply_filters(df, date_start, date_end, categories, regions)` function in `app.py` that filters the cleaned DataFrame by the active filter state (date range, then categories, then regions) and returns the filtered DataFrame (FR-006)
+- [x] T022 [US4] Wire filter state into `app.py` main flow so that `apply_filters()` runs after `clean_data()` and the filtered DataFrame is passed to all KPI and chart functions (FR-006)
 
 **Checkpoint**: Filters update all KPIs and charts correctly. All four user stories complete.
 
