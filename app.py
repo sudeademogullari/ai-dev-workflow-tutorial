@@ -112,6 +112,72 @@ def build_trend_chart(monthly_df: pd.DataFrame):
     return fig
 
 
+def compute_category_breakdown(df: pd.DataFrame) -> pd.DataFrame:
+    """Group by category, sum total_amount, sort descending (FR-004)."""
+    if df.empty:
+        return pd.DataFrame(columns=["category", "total_sales"])
+    return (
+        df.groupby("category")["total_amount"]
+        .sum()
+        .reset_index()
+        .rename(columns={"total_amount": "total_sales"})
+        .sort_values("total_sales", ascending=False)
+        .reset_index(drop=True)
+    )
+
+
+def compute_regional_breakdown(df: pd.DataFrame) -> pd.DataFrame:
+    """Group by region, sum total_amount, sort descending (FR-005)."""
+    if df.empty:
+        return pd.DataFrame(columns=["region", "total_sales"])
+    return (
+        df.groupby("region")["total_amount"]
+        .sum()
+        .reset_index()
+        .rename(columns={"total_amount": "total_sales"})
+        .sort_values("total_sales", ascending=False)
+        .reset_index(drop=True)
+    )
+
+
+def build_category_chart(category_df: pd.DataFrame):
+    """Return a Plotly horizontal bar chart of sales by category (FR-004)."""
+    fig = px.bar(
+        category_df,
+        x="total_sales",
+        y="category",
+        orientation="h",
+        title="Sales by Category",
+        labels={"total_sales": "Sales ($)", "category": "Category"},
+    )
+    fig.update_traces(
+        hovertemplate="<b>%{y}</b><br>Sales: $%{x:,.2f}<extra></extra>",
+    )
+    fig.update_xaxes(tickprefix="$", tickformat=",.0f")
+    fig.update_yaxes(categoryorder="total ascending")
+    fig.update_layout(margin=dict(t=40, b=0))
+    return fig
+
+
+def build_regional_chart(regional_df: pd.DataFrame):
+    """Return a Plotly horizontal bar chart of sales by region (FR-005)."""
+    fig = px.bar(
+        regional_df,
+        x="total_sales",
+        y="region",
+        orientation="h",
+        title="Sales by Region",
+        labels={"total_sales": "Sales ($)", "region": "Region"},
+    )
+    fig.update_traces(
+        hovertemplate="<b>%{y}</b><br>Sales: $%{x:,.2f}<extra></extra>",
+    )
+    fig.update_xaxes(tickprefix="$", tickformat=",.0f")
+    fig.update_yaxes(categoryorder="total ascending")
+    fig.update_layout(margin=dict(t=40, b=0))
+    return fig
+
+
 # ── Main app ──────────────────────────────────────────────────────────────────
 
 st.title("ShopSmart Sales Dashboard")
@@ -142,3 +208,19 @@ with col4:
 
 monthly_df = compute_monthly_trend(df)
 st.plotly_chart(build_trend_chart(monthly_df), use_container_width=True)
+
+# ── Category & regional breakdowns ───────────────────────────────────────────
+
+chart_col1, chart_col2 = st.columns(2)
+
+with chart_col1:
+    st.plotly_chart(
+        build_category_chart(compute_category_breakdown(df)),
+        use_container_width=True,
+    )
+
+with chart_col2:
+    st.plotly_chart(
+        build_regional_chart(compute_regional_breakdown(df)),
+        use_container_width=True,
+    )

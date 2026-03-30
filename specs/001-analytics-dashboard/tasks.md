@@ -90,11 +90,11 @@ both sorted highest to lowest with correct values from the full dataset.
 
 ### Implementation for User Story 3
 
-- [ ] T015 [P] [US3] Implement `compute_category_breakdown(df)` function in `app.py` that groups by `category`, sums `total_amount`, and sorts descending (FR-004)
-- [ ] T016 [P] [US3] Implement `compute_regional_breakdown(df)` function in `app.py` that groups by `region`, sums `total_amount`, and sorts descending (FR-005)
-- [ ] T017 [P] [US3] Implement `build_category_chart(category_df)` function in `app.py` that returns a Plotly horizontal bar chart with currency-formatted values and hover tooltips (FR-004)
-- [ ] T018 [P] [US3] Implement `build_regional_chart(regional_df)` function in `app.py` that returns a Plotly horizontal bar chart with currency-formatted values and hover tooltips (FR-005)
-- [ ] T019 [US3] Render category and regional charts side by side using `st.columns(2)` in `app.py`, each with `st.plotly_chart()` and `use_container_width=True` (FR-004, FR-005)
+- [x] T015 [P] [US3] Implement `compute_category_breakdown(df)` function in `app.py` that groups by `category`, sums `total_amount`, and sorts descending (FR-004)
+- [x] T016 [P] [US3] Implement `compute_regional_breakdown(df)` function in `app.py` that groups by `region`, sums `total_amount`, and sorts descending (FR-005)
+- [x] T017 [P] [US3] Implement `build_category_chart(category_df)` function in `app.py` that returns a Plotly horizontal bar chart with currency-formatted values and hover tooltips (FR-004)
+- [x] T018 [P] [US3] Implement `build_regional_chart(regional_df)` function in `app.py` that returns a Plotly horizontal bar chart with currency-formatted values and hover tooltips (FR-005)
+- [x] T019 [US3] Render category and regional charts side by side using `st.columns(2)` in `app.py`, each with `st.plotly_chart()` and `use_container_width=True` (FR-004, FR-005)
 
 **Checkpoint**: Full read-only dashboard complete and shippable. ✅ MVP REACHED.
 Stop here to validate and demo before proceeding to filters.
