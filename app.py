@@ -41,3 +41,55 @@ def clean_data(df: pd.DataFrame) -> tuple[pd.DataFrame, int]:
     rows_skipped = int(unrecoverable.sum())
     clean_df = df[~unrecoverable].reset_index(drop=True)
     return clean_df, rows_skipped
+
+
+def compute_kpis(df: pd.DataFrame) -> dict:
+    """Compute the four KPI values from the (filtered) DataFrame (FR-001)."""
+    if df.empty:
+        return {
+            "total_sales": 0.0,
+            "total_orders": 0,
+            "avg_order_value": 0.0,
+            "top_category_name": "No data",
+            "top_category_value": 0.0,
+        }
+    total_sales = df["total_amount"].sum()
+    total_orders = df["order_id"].nunique()
+    avg_order_value = total_sales / total_orders if total_orders else 0.0
+    category_sales = df.groupby("category")["total_amount"].sum()
+    top_category_name = category_sales.idxmax()
+    top_category_value = category_sales.max()
+    return {
+        "total_sales": total_sales,
+        "total_orders": total_orders,
+        "avg_order_value": avg_order_value,
+        "top_category_name": top_category_name,
+        "top_category_value": top_category_value,
+    }
+
+
+# ── Main app ──────────────────────────────────────────────────────────────────
+
+st.title("ShopSmart Sales Dashboard")
+
+df_raw = load_data()
+df, rows_skipped = clean_data(df_raw)
+
+kpis = compute_kpis(df)
+
+col1, col2, col3, col4 = st.columns(4)
+
+with col1:
+    st.metric("Total Sales", f"${kpis['total_sales']:,.2f}")
+
+with col2:
+    st.metric("Total Orders", f"{kpis['total_orders']:,}")
+
+with col3:
+    st.metric("Avg Order Value", f"${kpis['avg_order_value']:,.2f}")
+
+with col4:
+    st.metric(
+        f"Top Category: {kpis['top_category_name']}",
+        f"${kpis['top_category_value']:,.2f}",
+    )

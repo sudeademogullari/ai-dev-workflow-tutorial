@@ -52,12 +52,12 @@ interactivity, data quality handling last. MVP = User Stories 1–3 (read-only d
 
 ### Implementation for User Story 1
 
-- [ ] T006 Implement `compute_kpis(df)` function in `app.py` that returns a dict with `total_sales`, `total_orders`, `avg_order_value`, and `top_category` (name + value) computed from the filtered DataFrame (FR-001)
-- [ ] T007 [P] [US1] Add Total Sales KPI card to `app.py` using `st.metric()` with currency formatting `$X,XXX,XXX.XX` (FR-002)
-- [ ] T008 [P] [US1] Add Total Orders KPI card to `app.py` using `st.metric()` with comma-separated integer formatting (FR-002)
-- [ ] T009 [P] [US1] Add Average Order Value KPI card to `app.py` using `st.metric()` with currency formatting `$X,XXX.XX` (FR-002)
-- [ ] T010 [P] [US1] Add Top Category KPI card to `app.py` using `st.metric()` showing category name as label and revenue as value (FR-002)
-- [ ] T011 [US1] Arrange all four KPI cards in a single horizontal row using `st.columns(4)` in `app.py`, positioned below the page title (FR-001)
+- [x] T006 Implement `compute_kpis(df)` function in `app.py` that returns a dict with `total_sales`, `total_orders`, `avg_order_value`, and `top_category` (name + value) computed from the filtered DataFrame (FR-001)
+- [x] T007 [P] [US1] Add Total Sales KPI card to `app.py` using `st.metric()` with currency formatting `$X,XXX,XXX.XX` (FR-002)
+- [x] T008 [P] [US1] Add Total Orders KPI card to `app.py` using `st.metric()` with comma-separated integer formatting (FR-002)
+- [x] T009 [P] [US1] Add Average Order Value KPI card to `app.py` using `st.metric()` with currency formatting `$X,XXX.XX` (FR-002)
+- [x] T010 [P] [US1] Add Top Category KPI card to `app.py` using `st.metric()` showing category name as label and revenue as value (FR-002)
+- [x] T011 [US1] Arrange all four KPI cards in a single horizontal row using `st.columns(4)` in `app.py`, positioned below the page title (FR-001)
 
 **Checkpoint**: App loads and displays four KPI cards with correct values. MVP partial.
 
