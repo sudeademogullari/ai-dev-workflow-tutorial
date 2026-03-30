@@ -1,4 +1,5 @@
 import pandas as pd
+import plotly.express as px
 import streamlit as st
 
 st.set_page_config(
@@ -68,6 +69,49 @@ def compute_kpis(df: pd.DataFrame) -> dict:
     }
 
 
+def compute_monthly_trend(df: pd.DataFrame) -> pd.DataFrame:
+    """Group transactions by calendar month and sum total_amount (FR-003).
+
+    Returns a DataFrame with columns 'month' (period start) and 'total_sales',
+    sorted ascending. Months with zero sales are included (filled with 0).
+    """
+    if df.empty:
+        return pd.DataFrame(columns=["month", "total_sales"])
+    monthly = (
+        df.groupby(pd.Grouper(key="date", freq="MS"))["total_amount"]
+        .sum()
+        .reset_index()
+        .rename(columns={"date": "month", "total_amount": "total_sales"})
+    )
+    monthly = monthly.sort_values("month").reset_index(drop=True)
+    return monthly
+
+
+def build_trend_chart(monthly_df: pd.DataFrame):
+    """Return a Plotly line chart of monthly sales with tooltips (FR-003)."""
+    monthly_df = monthly_df.copy()
+    monthly_df["month_label"] = monthly_df["month"].dt.strftime("%b %Y")
+    fig = px.line(
+        monthly_df,
+        x="month_label",
+        y="total_sales",
+        markers=True,
+        labels={"month_label": "Month", "total_sales": "Sales ($)"},
+        title="Sales Trend Over Time",
+    )
+    fig.update_traces(
+        hovertemplate="<b>%{x}</b><br>Sales: $%{y:,.2f}<extra></extra>",
+    )
+    fig.update_yaxes(tickprefix="$", tickformat=",.0f")
+    fig.update_layout(
+        xaxis_title=None,
+        yaxis_title="Sales ($)",
+        hovermode="x unified",
+        margin=dict(t=40, b=0),
+    )
+    return fig
+
+
 # ── Main app ──────────────────────────────────────────────────────────────────
 
 st.title("ShopSmart Sales Dashboard")
@@ -93,3 +137,8 @@ with col4:
         f"Top Category: {kpis['top_category_name']}",
         f"${kpis['top_category_value']:,.2f}",
     )
+
+# ── Sales trend chart ─────────────────────────────────────────────────────────
+
+monthly_df = compute_monthly_trend(df)
+st.plotly_chart(build_trend_chart(monthly_df), use_container_width=True)

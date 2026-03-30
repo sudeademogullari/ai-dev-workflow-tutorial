@@ -72,9 +72,9 @@ correct monthly totals and currency-formatted y-axis.
 
 ### Implementation for User Story 2
 
-- [ ] T012 [US2] Implement `compute_monthly_trend(df)` function in `app.py` that groups transactions by calendar month, sums `total_amount`, sorts ascending, and returns a DataFrame with columns `month` and `total_sales` (FR-003)
-- [ ] T013 [US2] Implement `build_trend_chart(monthly_df)` function in `app.py` that returns a Plotly line chart with month-name x-axis labels, currency-formatted y-axis, and hover tooltips showing month and exact sales value (FR-003)
-- [ ] T014 [US2] Render the trend chart in `app.py` below the KPI row using `st.plotly_chart()` with `use_container_width=True` (FR-003)
+- [x] T012 [US2] Implement `compute_monthly_trend(df)` function in `app.py` that groups transactions by calendar month, sums `total_amount`, sorts ascending, and returns a DataFrame with columns `month` and `total_sales` (FR-003)
+- [x] T013 [US2] Implement `build_trend_chart(monthly_df)` function in `app.py` that returns a Plotly line chart with month-name x-axis labels, currency-formatted y-axis, and hover tooltips showing month and exact sales value (FR-003)
+- [x] T014 [US2] Render the trend chart in `app.py` below the KPI row using `st.plotly_chart()` with `use_container_width=True` (FR-003)
 
 **Checkpoint**: App displays trend line chart. Both P1 user stories complete. MVP partial.
 
