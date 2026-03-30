@@ -36,8 +36,8 @@ interactivity, data quality handling last. MVP = User Stories 1–3 (read-only d
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete.
 
-- [ ] T004 Implement `load_data()` function in `app.py` that reads `data/sales-data.csv` using pandas, validates all required columns are present (`date`, `order_id`, `category`, `region`, `quantity`, `unit_price`, `total_amount`), and raises a descriptive error if any column is missing (FR-008)
-- [ ] T005 Implement `clean_data(df)` function in `app.py` that imputes missing `total_amount` as `quantity × unit_price`, drops rows where imputation is impossible, and returns a tuple `(clean_df, rows_skipped)` (FR-007)
+- [x] T004 Implement `load_data()` function in `app.py` that reads `data/sales-data.csv` using pandas, validates all required columns are present (`date`, `order_id`, `category`, `region`, `quantity`, `unit_price`, `total_amount`), and raises a descriptive error if any column is missing (FR-008)
+- [x] T005 Implement `clean_data(df)` function in `app.py` that imputes missing `total_amount` as `quantity × unit_price`, drops rows where imputation is impossible, and returns a tuple `(clean_df, rows_skipped)` (FR-007)
 
 **Checkpoint**: `load_data()` and `clean_data()` work correctly — run `python -c "import app"` without errors before proceeding.
 
